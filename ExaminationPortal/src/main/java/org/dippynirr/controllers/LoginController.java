@@ -77,14 +77,15 @@ public class LoginController {
                         examList = mapper.readValue(output, new TypeReference<List<Exam>>() {});
                     }
                 }catch (Exception e){e.printStackTrace();}
-
-                List<Exam> studentDataWithExamResult = new ArrayList<>();
-                for(Exam exam:examList){
-                    if(exam.getMarks()!=null){
-                        studentDataWithExamResult.add(exam);
-                    }
-                }
-                modelAndView.addObject("displayData",studentDataWithExamResult);
+                /*User user1 = new User("ram", new Exam("Physics","12/3/2020",12D));
+                list.add(user1);
+                User user2 = new User("dina", new Exam("Chemistry","12/3/2020",12D));
+                list.add(user2);
+                User user3 = new User("sina", new Exam("Physics","1/3/2020",6D));
+                list.add(user3);
+                User user4 = new User("neena", new Exam("Mathematics","4/3/2020",10D));
+                list.add(user4);*/
+                modelAndView.addObject("displayData",examList);
             }
             modelAndView.addObject("exam",new Exam());
             modelAndView.addObject("message","You are all set!!");
