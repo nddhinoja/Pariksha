@@ -16,8 +16,8 @@
 <center>
 <h1>Student Dashboard</h1>
 
-    <jsp:include page="headerInfo.jsp" />
-    <jsp:include page="home.jsp"/>
+    <jsp:include page="headerInfo.jsp" /><br>
+    <jsp:include page="home.jsp"/><br>
 <form:form id="studentdashboardForm" style="margin-top:9%" modelAttribute="exam" action="examinitial" method="post">
     <table>
         <tr>

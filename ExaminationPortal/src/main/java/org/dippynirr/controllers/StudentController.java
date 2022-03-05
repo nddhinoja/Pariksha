@@ -55,11 +55,11 @@ public class StudentController {
             BufferedReader bufferedReader = new BufferedReader(
                     new InputStreamReader(response.getEntity().getContent()));
             while ((output= bufferedReader.readLine())!=null){
-               // list = mapper.readValue(output, new TypeReference<List<Question>>() {});
                 examOutput = mapper.readValue(output,Exam.class);
             }
         }catch (Exception e){e.printStackTrace();}
         session.setAttribute("examId",examOutput.getExamId());
+        session.setAttribute("subject",exam.getSubject());
         ModelAndView modelAndView = new ModelAndView("exampage");
         modelAndView.addObject("question",examOutput.getQuestionList());
         return modelAndView;
@@ -108,11 +108,4 @@ public class StudentController {
         modelAndView.addObject("marks",resultOfExam);
         return modelAndView;
     }
-
-    /*@GetMapping("/nextpage")
-    public ModelAndView nextPage(@SessionAttribute("login")Login login){
-        ModelAndView modelAndView = new ModelAndView("nextpage");
-        modelAndView.addObject("login",login);
-        return modelAndView;
-    }*/
 }

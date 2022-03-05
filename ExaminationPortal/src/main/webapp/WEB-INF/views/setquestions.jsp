@@ -16,8 +16,8 @@
 <body>
 <center>
     <h1>Set Questions</h1>
-    <jsp:include page="headerInfo.jsp"/>
-    <jsp:include page="home.jsp"/>
+    <jsp:include page="headerInfo.jsp"/><br>
+    <jsp:include page="home.jsp"/><br>
 <form action="savequestion" method="post">
     <table>
         <tr>
