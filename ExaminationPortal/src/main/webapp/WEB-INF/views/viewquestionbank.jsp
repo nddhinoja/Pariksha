@@ -45,24 +45,21 @@
         </th>
     </tr>
     <tr>
-     <c:forEach items="${questionlist}" var="questionlist">
+     <c:forEach items="${questionlist}" var="questionl">
         <tr>
             <td>
-                <%--<c:out value="${questionlist.question.questionContent}"/>--%>
-                <p>${questionlist.question.questionContent}</p>
+                ${questionl.questionContent}
             </td>
-            <c:forEach var="option" items="${questionlist.question.optionList}">
+            <c:forEach var="option" items="${questionl.optionList}">
                 <td>
-                    <%--<c:out value="${option.optionContent}"/>--%>
                     ${option.optionContent}
                 </td>
             </c:forEach>
             <td>
-                <%--<c:out value="${exam.weightage}"/>--%>
-                <p>${questionlist.weightage}</p>
+                <p>${questionl.weightage}</p>
             </td>
             <td>
-                <c:forEach var="option" items="${questionlist.question.optionList}">
+                <c:forEach var="option" items="${questionl.optionList}">
                     <c:choose>
                         <c:when test="${option.flag==true}">
                             ${option.optionContent}
