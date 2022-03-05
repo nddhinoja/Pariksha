@@ -15,8 +15,8 @@
 <body>
 <center>
     <h1>View Question Bank</h1>
-    <jsp:include page="headerInfo.jsp" />
-    <jsp:include page="home.jsp"/>
+    <jsp:include page="headerInfo.jsp" /><br>
+    <jsp:include page="home.jsp"/><br>
 
     <form method="post">
         <p>${subject}</p>

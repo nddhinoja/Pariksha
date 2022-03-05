@@ -40,7 +40,8 @@ public class FacultyController {
     @PostMapping("/savequestion")
     public ModelAndView saveQuestion(@RequestParam("questionContent")String content,@RequestParam("correctanswer")String selectedAnswer,
                                      @RequestParam("weightage")Double weightage,
-                                     HttpServletRequest request, @SessionAttribute("subject1") Exam examSubject){
+                                     HttpServletRequest request, @SessionAttribute("subject1") Exam examSubject,
+                                     HttpSession session){
         Exam exam = new Exam();
         Question question = new Question();
         question.setQuestionContent(content);
