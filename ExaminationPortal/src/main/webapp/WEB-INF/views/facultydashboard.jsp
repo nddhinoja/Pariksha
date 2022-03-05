@@ -55,54 +55,42 @@
 <center>
     <form method="get">
         <table>
-            <tr>
-                <td>
-                    <c:forEach items="${displayData}" var="examlist">
-                        <p>Student Name: </p><c:out value="${examlist.user.name}"/><br>
-                        <p>Exam Date: </p><c:out value="${examlist.examDate}"/><br>
-                        <p>Exam Subject: </p><c:out value="${examlist.subject}"/><br>
-                        <p>Exam Marks: </p><c:out value="${examlist.marks}"/><br>
-                    </c:forEach>
-                </td>
-            </tr>
+                <c:forEach items="${displayData}" var="examlist">
+                    <tr>
+                        <td>
+                        Student Name:
+                        </td>
+                        <td>
+                            <c:out value="${examlist.user.name}"/>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td>
+                            Exam Date:
+                        </td>
+                        <td>
+                            <c:out value="${examlist.examDate}"/>
+                        </td>
+                     </tr>
+                    <tr>
+                        <td>
+                            Exam Subject:
+                        </td>
+                        <td>
+                            <c:out value="${examlist.subject}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                        Exam Marks:
+                        </td>
+                        <td>
+                            <c:out value="${examlist.marks}"/>
+                        </td>
+                    </tr>
+                </c:forEach>
         </table>
     </form>
-<%--<form:form id="dispalyForm" modelAttribute="displayData" method="get">
-    <table style="border: solid black">
-        <tr>
-            <td>
-            <p style="font-size: 140%">Results<p>
-            </td>
-        </tr>
-        <tr>
-            <td>${displayData.listOfUser.get(0).name}</td>
-            <td>${displayData.listOfUser.get(0).exam.subject}</td>
-            <td>${displayData.listOfUser.get(0).exam.examDate}</td>
-            <td>${displayData.listOfUser.get(0).exam.marks}</td>
-        </tr>
-        <tr>
-            <td>${displayData.listOfUser.get(1).name}</td>
-            <td>${displayData.listOfUser.get(1).exam.subject}</td>
-            <td>${displayData.listOfUser.get(1).exam.examDate}</td>
-            <td>${displayData.listOfUser.get(1).exam.marks}</td>
-        </tr>
-        <tr>
-            <td>${displayData.listOfUser.get(2).name}</td>
-            <td>${displayData.listOfUser.get(2).exam.subject}</td>
-            <td>${displayData.listOfUser.get(2).exam.examDate}</td>
-            <td>${displayData.listOfUser.get(2).exam.marks}</td>
-        </tr>
-        <tr>
-            <td>${displayData.listOfUser.get(3).name}</td>
-            <td>${displayData.listOfUser.get(3).exam.subject}</td>
-            <td>${displayData.listOfUser.get(3).exam.examDate}</td>
-            <td>${displayData.listOfUser.get(3).exam.marks}</td>
-        </tr>
-        <tr>
-            <td>${message}</td>
-        </tr>
-    </table>
-</form:form>--%>
 </center>
 </body>
 </html>
