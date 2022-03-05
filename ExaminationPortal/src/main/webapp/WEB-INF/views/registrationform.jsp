@@ -15,11 +15,11 @@
 <center>
     <h1>Registration</h1>
 
-    <%--@elvariable id="user" type="org.dippynirr.models.User"--%>
     <form:form id="registrationform" action="successfullregistration" modelAttribute="user" method="post">
 
         <form:radiobutton path="userCategory" name="Cat" value="Student"/>
         <form:label path="userCategory">Student</form:label><br>
+
         <form:radiobutton path="userCategory" name="Cat" value="Faculty"/>
         <form:label path="userCategory">Faculty</form:label><br><br>
 
