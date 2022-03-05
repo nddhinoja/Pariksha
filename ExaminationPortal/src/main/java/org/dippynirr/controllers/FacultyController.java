@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -43,6 +44,7 @@ public class FacultyController {
                                      HttpServletRequest request, @SessionAttribute("subject1") Exam examSubject,
                                      HttpSession session){
         Exam exam = new Exam();
+        //exam.setSubject(examSubject.getSubject());
         Question question = new Question();
         question.setQuestionContent(content);
         question.setQuestionSub(examSubject.getSubject());
@@ -59,6 +61,7 @@ public class FacultyController {
 
         question.setWeightage(weightage);
         question.setOptionList(list);
+        //exam.setQuestion(question);
 
         ModelAndView modelAndView = new ModelAndView("setquestions");
 

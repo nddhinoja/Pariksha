@@ -20,7 +20,7 @@
 
     <form method="post">
         <p>${subject}</p>
-            <table style="border: solid black" border="1">
+            <table style="border: solid black">
             <tr>
                 <th>
                  Question
@@ -72,6 +72,72 @@
     </tr>
 </table>
 </form>
+<%--
+    <form:form id="viewquestionbankform" modelAttribute="displayQuestion" method="get">
+        <p>${subject}<p>--%>
+       <%-- <table style="border: solid black;">
+            <tr>
+                 <th>
+                    Question
+                 </th>
+                 <th>
+                     Option A
+                 </th>
+                 <th>
+                     Option B
+                 </th>
+                 <th>
+                     Option C
+                 </th>
+                 <th>
+                     Option D
+                 </th>
+                 <th>
+                     Correct Ans
+                 </th>
+                 <th>
+                     Weightage
+                 </th>
+            </tr>--%>
+            <%--<tr>
+                <td>${displayQuestion.examList.get(0).question}</td>
+                <td>${displayQuestion.examList.get(0).answerOptions.get(0)}</td>
+                <td>${displayQuestion.examList.get(0).answerOptions.get(1)}</td>
+                <td>${displayQuestion.examList.get(0).answerOptions.get(2)}</td>
+                <td>${displayQuestion.examList.get(0).answerOptions.get(3)}</td>
+                <td>${displayQuestion.examList.get(0).correctAnswer}</td>
+                <td>${displayQuestion.examList.get(0).weightage}</td>
+            </tr>
+            <tr>
+                <td>${displayQuestion.examList.get(1).question}</td>
+                <td>${displayQuestion.examList.get(1).answerOptions.get(0)}</td>
+                <td>${displayQuestion.examList.get(1).answerOptions.get(1)}</td>
+                <td>${displayQuestion.examList.get(1).answerOptions.get(2)}</td>
+                <td>${displayQuestion.examList.get(1).answerOptions.get(3)}</td>
+                <td>${displayQuestion.examList.get(1).correctAnswer}</td>
+                <td>${displayQuestion.examList.get(1).weightage}</td>
+            </tr>
+            <tr>
+                <td>${displayQuestion.examList.get(2).question}</td>
+                <td>${displayQuestion.examList.get(2).answerOptions.get(0)}</td>
+                <td>${displayQuestion.examList.get(2).answerOptions.get(1)}</td>
+                <td>${displayQuestion.examList.get(2).answerOptions.get(2)}</td>
+                <td>${displayQuestion.examList.get(2).answerOptions.get(3)}</td>
+                <td>${displayQuestion.examList.get(2).correctAnswer}</td>
+                <td>${displayQuestion.examList.get(2).weightage}</td>
+            </tr>
+            <tr>
+                <td>${displayQuestion.examList.get(3).question}</td>
+                <td>${displayQuestion.examList.get(3).answerOptions.get(0)}</td>
+                <td>${displayQuestion.examList.get(3).answerOptions.get(1)}</td>
+                <td>${displayQuestion.examList.get(3).answerOptions.get(2)}</td>
+                <td>${displayQuestion.examList.get(3).answerOptions.get(3)}</td>
+                <td>${displayQuestion.examList.get(3).correctAnswer}</td>
+                <td>${displayQuestion.examList.get(3).weightage}</td>
+            </tr>--%>
+
+      <%--  </table>
+    </form:form>--%>
 </center>
 </body>
 </html>
