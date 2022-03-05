@@ -54,8 +54,13 @@
 </center>
 <center>
     <form method="get">
-        <table>
-                <c:forEach items="${displayData}" var="examlist">
+        <table style="border-style: solid; border-color: black; border-collapse: collapse; padding: 10px" border="1">
+                <c:forEach items="${displayData}" var="examlist" varStatus="i">
+                    <tr>
+                        <td>
+                            Student: ${i.count}
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                         Student Name:
