@@ -1,6 +1,5 @@
 package org.dippynirr.controllers;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -8,8 +7,6 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.dippy.models.*;
-import org.dippynirr.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -25,9 +22,6 @@ import java.util.List;
 
 @Controller
 public class StudentController {
-
-    @Autowired
-    UserService userService;
 
     @PostMapping("/examinitial")
     public ModelAndView examStart(Exam exam, HttpSession session){

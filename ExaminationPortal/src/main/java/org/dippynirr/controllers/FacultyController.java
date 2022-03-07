@@ -8,8 +8,6 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.dippy.models.*;
-import org.dippynirr.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,9 +22,6 @@ import java.util.List;
 @Controller
 @SessionAttributes("subject1")
 public class FacultyController {
-
-    @Autowired
-    UserService userService;
 
     @PostMapping("/setquestion")
         public ModelAndView setQuestionPaper(@ModelAttribute("subject1") Exam examSubject, HttpSession session){

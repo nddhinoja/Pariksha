@@ -34,21 +34,25 @@
         </tr>
         <tr>
             <td>
+                <label>Option A : </label>
                 <input type="text" id="${question.optionList.get(0).optionContent}" name="optionA"/>
             </td>
         </tr>
         <tr>
             <td>
+                <label>Option B : </label>
                 <input type="text" id="${question.optionList.get(1).optionContent}" name="optionB"/>
             </td>
         </tr>
         <tr>
             <td>
+                <label>Option C : </label>
                 <input type="text" id="${question.optionList.get(2).optionContent}" name="optionC"/>
             </td>
         </tr>
         <tr>
             <td>
+                <label>Option D : </label>
                 <input type="text" id="${question.optionList.get(3).optionContent}" name="optionD"/>
             </td>
         </tr>

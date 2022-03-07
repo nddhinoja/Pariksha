@@ -7,8 +7,6 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.dippy.models.User;
-import org.dippynirr.services.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,14 +22,8 @@ import java.io.InputStreamReader;
 @SessionAttributes("user")
 public class RegistrationController {
 
-    @Autowired
-    UserService userService;
-
     @PostMapping("/successfullregistration")
     public ModelAndView afterRegistration(@ModelAttribute("user") User user){
-        userService.saveData(user);
-        System.out.println(user.getUserName());
-
         String output = null;
         String nameOfUser = null;
         ObjectMapper mapper = new ObjectMapper();
