@@ -15,12 +15,12 @@
 <body>
 <center>
     <h1>View Question Bank</h1>
-    <jsp:include page="headerInfo.jsp" />
-    <jsp:include page="home.jsp"/>
+    <jsp:include page="headerInfo.jsp" /><br>
+    <jsp:include page="home.jsp"/><br>
 
     <form method="post">
         <p>${subject}</p>
-            <table style="border: solid black">
+            <table style="border: solid black" border="1">
             <tr>
                 <th>
                  Question
@@ -45,24 +45,21 @@
         </th>
     </tr>
     <tr>
-     <c:forEach items="${questionlist}" var="questionlist">
+     <c:forEach items="${questionlist}" var="questionl">
         <tr>
             <td>
-                <%--<c:out value="${questionlist.question.questionContent}"/>--%>
-                <p>${questionlist.question.questionContent}</p>
+                ${questionl.questionContent}
             </td>
-            <c:forEach var="option" items="${questionlist.question.optionList}">
+            <c:forEach var="option" items="${questionl.optionList}">
                 <td>
-                    <%--<c:out value="${option.optionContent}"/>--%>
                     ${option.optionContent}
                 </td>
             </c:forEach>
             <td>
-                <%--<c:out value="${exam.weightage}"/>--%>
-                <p>${questionlist.weightage}</p>
+                <p>${questionl.weightage}</p>
             </td>
             <td>
-                <c:forEach var="option" items="${questionlist.question.optionList}">
+                <c:forEach var="option" items="${questionl.optionList}">
                     <c:choose>
                         <c:when test="${option.flag==true}">
                             ${option.optionContent}
@@ -75,72 +72,6 @@
     </tr>
 </table>
 </form>
-<%--
-    <form:form id="viewquestionbankform" modelAttribute="displayQuestion" method="get">
-        <p>${subject}<p>--%>
-       <%-- <table style="border: solid black;">
-            <tr>
-                 <th>
-                    Question
-                 </th>
-                 <th>
-                     Option A
-                 </th>
-                 <th>
-                     Option B
-                 </th>
-                 <th>
-                     Option C
-                 </th>
-                 <th>
-                     Option D
-                 </th>
-                 <th>
-                     Correct Ans
-                 </th>
-                 <th>
-                     Weightage
-                 </th>
-            </tr>--%>
-            <%--<tr>
-                <td>${displayQuestion.examList.get(0).question}</td>
-                <td>${displayQuestion.examList.get(0).answerOptions.get(0)}</td>
-                <td>${displayQuestion.examList.get(0).answerOptions.get(1)}</td>
-                <td>${displayQuestion.examList.get(0).answerOptions.get(2)}</td>
-                <td>${displayQuestion.examList.get(0).answerOptions.get(3)}</td>
-                <td>${displayQuestion.examList.get(0).correctAnswer}</td>
-                <td>${displayQuestion.examList.get(0).weightage}</td>
-            </tr>
-            <tr>
-                <td>${displayQuestion.examList.get(1).question}</td>
-                <td>${displayQuestion.examList.get(1).answerOptions.get(0)}</td>
-                <td>${displayQuestion.examList.get(1).answerOptions.get(1)}</td>
-                <td>${displayQuestion.examList.get(1).answerOptions.get(2)}</td>
-                <td>${displayQuestion.examList.get(1).answerOptions.get(3)}</td>
-                <td>${displayQuestion.examList.get(1).correctAnswer}</td>
-                <td>${displayQuestion.examList.get(1).weightage}</td>
-            </tr>
-            <tr>
-                <td>${displayQuestion.examList.get(2).question}</td>
-                <td>${displayQuestion.examList.get(2).answerOptions.get(0)}</td>
-                <td>${displayQuestion.examList.get(2).answerOptions.get(1)}</td>
-                <td>${displayQuestion.examList.get(2).answerOptions.get(2)}</td>
-                <td>${displayQuestion.examList.get(2).answerOptions.get(3)}</td>
-                <td>${displayQuestion.examList.get(2).correctAnswer}</td>
-                <td>${displayQuestion.examList.get(2).weightage}</td>
-            </tr>
-            <tr>
-                <td>${displayQuestion.examList.get(3).question}</td>
-                <td>${displayQuestion.examList.get(3).answerOptions.get(0)}</td>
-                <td>${displayQuestion.examList.get(3).answerOptions.get(1)}</td>
-                <td>${displayQuestion.examList.get(3).answerOptions.get(2)}</td>
-                <td>${displayQuestion.examList.get(3).answerOptions.get(3)}</td>
-                <td>${displayQuestion.examList.get(3).correctAnswer}</td>
-                <td>${displayQuestion.examList.get(3).weightage}</td>
-            </tr>--%>
-
-      <%--  </table>
-    </form:form>--%>
 </center>
 </body>
 </html>
