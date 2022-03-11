@@ -11,6 +11,8 @@
     <title>Title</title>
 </head>
 <body>
-<a href="login">logout</a>
+<form action="logout" method="get">
+    <button type="submit" name="logout" value="logout">Logout</button>
+</form>
 </body>
 </html>

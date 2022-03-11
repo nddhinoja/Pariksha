@@ -15,13 +15,13 @@
 </head>
 <body>
 <center>
-    <jsp:include page="home.jsp"/>
-    <jsp:include page="headerInfo.jsp"/>
+    <jsp:include page="home.jsp"/><br>
+    <jsp:include page="headerInfo.jsp"/><br>
 
     <form action="result" method="post">
         <table>
 
-           <%--     &lt;%&ndash;<td>
+                <%--<td>
                     <script>
                         var timeleft = 10;
                         var downloadTimer = setInterval(function(){
@@ -40,33 +40,36 @@
                     </script>
                     <div id="countdown"></div>
 
-                </td>&ndash;%&gt;
+                </td>--%>
             <th>
             <td>
-               &lt;%&ndash; <p>${exam.subject}<p><br><br>&ndash;%&gt;
-               &lt;%&ndash; <%=session.getAttribute("abc")%>&ndash;%&gt;
+               <%-- <p>${exam.subject}<p><br><br>--%>
+               <%-- <%=session.getAttribute("abc")%>--%>
             </td>
             </th>
             <tr>
                 <td>
-                    <label>::Question Sheet::</label>
+                    <label>::Question Sheet:: <%=session.getAttribute("subject")%></label>
                 </td>
-            </tr>--%>
-            <tr>
-                <td>
-                    <c:forEach items="${question}" var="question">
-                     <%--<c:out value="${exam.question}"/><br><br>--%>
-                        <li>${question.questionContent}</li>
+            </tr>
+            <c:forEach items="${question}" var="question" varStatus="i">
 
-                        <input type="hidden" name="questionId" value="${question.questionId}">
-
+                <tr>
+                    <td>
+                            Question : ${i.count}<br>
+                            ${question.questionContent}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <input type="hidden" name="questionId" value="${question.questionId}">
                         <c:forEach var="option" items="${question.optionList}">
                             <input type="radio" name="${question.questionId}" value="${option.optionId}"/>
                             <label>${option.optionContent}</label><br><br>
                         </c:forEach>
-                    </c:forEach>
-                </td>
-            </tr>
+                    </td>
+                </tr>
+            </c:forEach>
                <tr>
                    <td>
                        <button id="submit" type="submit" name="submit" value="submit">Submit</button>
