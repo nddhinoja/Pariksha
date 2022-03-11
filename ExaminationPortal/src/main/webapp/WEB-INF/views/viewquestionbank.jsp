@@ -13,6 +13,11 @@
     <title>View Question Bank</title>
 </head>
 <body>
+
+<form action="home" method="get">
+    <button type="submit" name="Home">Home Interceptor</button>
+</form>
+<a href="facultydashboard.jsp" style="font-size: large">Home</a>
 <center>
     <h1>View Question Bank</h1>
     <jsp:include page="headerInfo.jsp" /><br>

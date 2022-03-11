@@ -13,8 +13,9 @@ import org.dippy.models.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -23,7 +24,7 @@ import java.io.*;
 import java.util.*;
 
 @Controller
-@SessionAttributes("login")
+//@SessionAttributes("login")
 public class LoginController {
 
     @GetMapping("/login")
@@ -33,70 +34,93 @@ public class LoginController {
         return modelAndView;
     }
 
-    @PostMapping("/loginprocess")
-    public ModelAndView loginProcess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
-                                     @ModelAttribute("login")Login login, HttpSession session) throws IOException {
+    //@RequestMapping("/loginprocess")
+    public ModelAndView loginProcess(@ModelAttribute("login") Login login, HttpSession session) throws IOException {
         ModelAndView modelAndView = null;
         String output ;
         User user = null;
         ObjectMapper mapper = new ObjectMapper();
         DefaultHttpClient httpClient = new DefaultHttpClient();
 
-        try {
-            HttpPost postRequest = new HttpPost("http://localhost:8080/ExaminationRestService_war/user/loginvalidate");
-            postRequest.addHeader("content-type","application/json");
-            String loginJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(login);
-            StringEntity loginEntity = new StringEntity(loginJson, ContentType.APPLICATION_JSON);
-            postRequest.setEntity(loginEntity);
+        if(session.getAttribute("role")==null) {
+            try {
+                HttpPost postRequest = new HttpPost("http://localhost:8080/ExaminationRestService_war/user/loginvalidate");
+                postRequest.addHeader("content-type", "application/json");
+                String loginJson = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(login);
+                StringEntity loginEntity = new StringEntity(loginJson, ContentType.APPLICATION_JSON);
+                postRequest.setEntity(loginEntity);
 
-            HttpResponse response = httpClient.execute(postRequest);
-            BufferedReader bufferedReader = new BufferedReader(
-                    new InputStreamReader(response.getEntity().getContent()));
-            while ((output = bufferedReader.readLine()) != null) {
-                System.out.println(output);
-                user = mapper.readValue(output,User.class);
+                HttpResponse response = httpClient.execute(postRequest);
+                BufferedReader bufferedReader = new BufferedReader(
+                        new InputStreamReader(response.getEntity().getContent()));
+                while ((output = bufferedReader.readLine()) != null) {
+                    System.out.println(output);
+                    user = mapper.readValue(output, User.class);
+                }
+            } catch (ClientProtocolException e) {
+                e.printStackTrace();
             }
-        }catch (ClientProtocolException e){e.printStackTrace();}
-
+        }
         if(user!=null){
             if(user.getUserCategory().contains("Student")){
                 modelAndView = new ModelAndView("studentdashboard");
             }
             else if (user.getUserCategory().equals("Faculty")){
-                modelAndView = new ModelAndView("facultydashboard");
-                List<User> list = new ArrayList<>();
-                List<Exam> examList = new ArrayList<>();
-
-
-                try{
-                    HttpGet httpGet = new HttpGet("http://localhost:8080/ExaminationRestService_war/allstudentdata");
-                    HttpResponse response = httpClient.execute(httpGet);
-                    BufferedReader bufferedReader = new BufferedReader(
-                            new InputStreamReader(response.getEntity().getContent()));
-                    while ((output=bufferedReader.readLine())!=null){
-                        examList = mapper.readValue(output, new TypeReference<List<Exam>>() {});
-                    }
-                }catch (Exception e){e.printStackTrace();}
-
-                List<Exam> studentDataWithExamResult = new ArrayList<>();
-                for(Exam exam:examList){
-                    if(exam.getMarks()!=null){
-                        studentDataWithExamResult.add(exam);
-                    }
-                }
-                modelAndView.addObject("displayData",studentDataWithExamResult);
+                modelAndView = getModelAndView(mapper, httpClient);
             }
             modelAndView.addObject("exam",new Exam());
             modelAndView.addObject("message","You are all set!!");
-            session.setAttribute("user",user.getName());
-            session.setAttribute("wholeuser",user);
-            Cookie cookie = new Cookie("name", user.getName());
-            httpServletResponse.addCookie(cookie);
+            session.setAttribute("user", user.getName());
+            session.setAttribute("wholeuser", user);
+            session.setAttribute("role", user.getUserCategory());
+            session.setAttribute("userid", user.getUserName());
+            //Cookie cookie = new Cookie("login", login+"");
+            //httpServletResponse.addCookie(cookie);
+        }
+        else if(session!=null){
+            if(session.getAttribute("role").equals("Faculty")){
+                modelAndView = getModelAndView(mapper,httpClient);
+                modelAndView.addObject("exam",new Exam());
+            }
         }
         else {
             modelAndView = new ModelAndView("login");
             modelAndView.addObject("message","Your username or password is wrong!!Try again..");
         }
+        return modelAndView;
+    }
+
+    private ModelAndView getModelAndView(ObjectMapper mapper, DefaultHttpClient httpClient) {
+        String output;
+        ModelAndView modelAndView;
+        modelAndView = new ModelAndView("facultydashboard");
+        List<User> list = new ArrayList<>();
+        List<Exam> examList = new ArrayList<>();
+        try{
+            HttpGet httpGet = new HttpGet("http://localhost:8080/ExaminationRestService_war/allstudentdata");
+            HttpResponse response = httpClient.execute(httpGet);
+            BufferedReader bufferedReader = new BufferedReader(
+                    new InputStreamReader(response.getEntity().getContent()));
+            while ((output=bufferedReader.readLine())!=null){
+                examList = mapper.readValue(output, new TypeReference<List<Exam>>() {});
+            }
+        }catch (Exception e){e.printStackTrace();}
+
+        List<Exam> studentDataWithExamResult = new ArrayList<>();
+        for(Exam exam:examList){
+            if(exam.getMarks()!=null){
+                studentDataWithExamResult.add(exam);
+            }
+        }
+        modelAndView.addObject("displayData",studentDataWithExamResult);
+        return modelAndView;
+    }
+
+    @GetMapping("/logout")
+    public ModelAndView logout(HttpSession session){
+        session.invalidate();
+        ModelAndView modelAndView = new ModelAndView("login");
+        modelAndView.addObject("login",new Login());
         return modelAndView;
     }
 
@@ -126,11 +150,11 @@ public class LoginController {
         //User user = userService.validateEmail(emailId);
 
         if(user!=null){
-            modelAndView = new ModelAndView("login");
+            modelAndView = new ModelAndView("/WEB-INF/login.jsp");
             modelAndView.addObject("message","mail sent!!");
         }
         else {
-            modelAndView = new ModelAndView("login");
+            modelAndView = new ModelAndView("/WEB-INF/login.jsp");
             modelAndView.addObject("message","Wrong mail Id");
         }
         modelAndView.addObject("login",new Login());
@@ -145,10 +169,27 @@ public class LoginController {
         return modelAndView;
     }
 
-    @ModelAttribute("login")
+    @RequestMapping("/loginprocess")
+    public String home(@ModelAttribute ("login")Login login, HttpSession session){
+        //login.setPassword("Montana");
+        //redirectAttributes.addFlashAttribute("login",login);
+        return "forward:/studenthome";
+    }
+
+    @RequestMapping("/studenthome")
+    public ModelAndView studentHome(HttpSession session){
+        ModelAndView modelAndView = new ModelAndView("studentdashboard");
+        session.setAttribute("role","Student");
+        //login.setUserName("Hennah");
+        modelAndView.addObject("exam",new Exam());
+        return modelAndView;
+    }
+
+
+    /*@ModelAttribute("login")
     public Login login(){
         return new Login();
-    }
+    }*/
 
     //JSON to Object and Object to JSON
     //ObjectMapper mapper1 = new ObjectMapper();

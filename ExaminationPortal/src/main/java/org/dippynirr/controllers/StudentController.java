@@ -23,6 +23,13 @@ import java.util.List;
 @Controller
 public class StudentController {
 
+    //@RequestMapping("/studenthome")
+    public ModelAndView studentHome(@ModelAttribute("login")Login login){
+        ModelAndView modelAndView = new ModelAndView("studentdashboard");
+        modelAndView.addObject("exam",new Exam());
+        return modelAndView;
+    }
+
     @PostMapping("/examinitial")
     public ModelAndView examStart(Exam exam, HttpSession session){
         String output;

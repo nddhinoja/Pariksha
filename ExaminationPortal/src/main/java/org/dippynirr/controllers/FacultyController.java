@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.BufferedReader;
@@ -23,7 +24,7 @@ import java.util.List;
 @SessionAttributes("subject1")
 public class FacultyController {
 
-    @PostMapping("/setquestion")
+    @RequestMapping("/setquestion")
         public ModelAndView setQuestionPaper(@ModelAttribute("subject1") Exam examSubject, HttpSession session){
         ModelAndView modelAndView = new ModelAndView("setquestions");
         Question question = new Question();
@@ -32,7 +33,7 @@ public class FacultyController {
         return modelAndView;
     }
 
-    @PostMapping("/savequestion")
+    @RequestMapping("/savequestion")
     public ModelAndView saveQuestion(@RequestParam("questionContent")String content,@RequestParam("correctanswer")String selectedAnswer,
                                      @RequestParam("weightage")Double weightage,
                                      HttpServletRequest request, @SessionAttribute("subject1") Exam examSubject,
@@ -77,8 +78,15 @@ public class FacultyController {
         return modelAndView;
     }
 
-    @PostMapping("/viewquestions")
-    public ModelAndView viewQuestionBank(@ModelAttribute("viewSubject") Exam subjecExam){
+    @RequestMapping("/viewquestions")
+    public ModelAndView viewQuestionBank(@ModelAttribute("viewSubject") Exam subjecExam, HttpServletRequest request){
+        Cookie[] cookies = request.getCookies();
+        for(Cookie cookie:cookies){
+            if(cookie.getName().equals("login")){
+                System.out.println("Cookie Name:"+cookie.getName());
+            }
+        }
+
         ModelAndView modelAndView = new ModelAndView("viewquestionbank");
 
         String output;
@@ -106,6 +114,7 @@ public class FacultyController {
         modelAndView.addObject("questionlist",questionList);
         return modelAndView;
     }
+
 
     @ModelAttribute("subject1")
     Exam exam(){

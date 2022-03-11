@@ -27,13 +27,15 @@ public class LoginServiceImpl implements LoginService{
     }
 
     public User validateUser(Login login) {
+        User user = null;
         String userId = loginDao.existsLoginTblmByUserIdAndPassword(login.getUserName(),login.getPassword());
-        System.out.println("UserId in Login Table"+userId);
 
-        UserTblm userTblm = registrationDao.getById(userId);
-        //List<Exam> list = examTblmSetToexamList(userTblm.getExamTblmList());
-        User user = new User(userTblm.getUserCategory(), userTblm.getName(), userTblm.getBirthDate(),
-                userTblm.getEmailId(),userTblm.getUserId());
+        if (userId != null) {
+
+            UserTblm userTblm = registrationDao.getById(userId);
+            user = new User(userTblm.getUserCategory(), userTblm.getName(), userTblm.getBirthDate(),
+                    userTblm.getEmailId(), userTblm.getUserId());
+        }
         return user;
     }
 
